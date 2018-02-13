@@ -11,16 +11,9 @@ class annRBF():
         self.W = np.random.normal(mu, var, len(self.data[0]))
 
     def parse_data(self):
-        T = np.empty(len(self.data))
-        X = np.empty((len(self.data[1]), len(self.data)))
-        for idx, elm in enumerate(self.data):
-            T[idx] = elm[2]
-            X[0][idx] = elm[0]
-            X[1][idx] = elm[1]
-            X[2][idx] = 1
-        
-        return T, X
-
+        X = self.data[0]
+        T = self.data[1]
+        return X, T
 
     def targets(self,interval,span=[0,2*math.pi]):
         x = np.arange(span[1],span[2],interval)
@@ -33,3 +26,7 @@ class annRBF():
         out = np.exp(-((x-mu)**2)/(2*sigma2))
         return out
 
+    def update_weights(self, eta):
+        X, T = self.parse_data()
+        for elm in X:
+             

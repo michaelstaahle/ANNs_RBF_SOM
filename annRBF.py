@@ -21,7 +21,7 @@ class annRBF():
         
         return T, X
 
-
+#Creates the two functions to be approximated in task 1. Can be moved to different class
     def targets(self,interval,span=[0,2*math.pi]):
         x = np.arange(span[1],span[2],interval)
         sinx = np.sin(x)
@@ -29,7 +29,17 @@ class annRBF():
 
         return (x, sinx, sqx)
 
+#Defines the gaussian-shaped RBF functions/nodes
     def rbf(self, x, mu, sigma2):
         out = np.exp(-((x-mu)**2)/(2*sigma2))
         return out
+
+
+
+def fknApprox(self, targets, epochs):
+
+    update_weights(self)
+
+
+
 

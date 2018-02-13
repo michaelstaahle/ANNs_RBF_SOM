@@ -11,15 +11,9 @@ class annRBF():
         self.W = np.random.normal(mu, var, len(self.data[0]))
 
     def parse_data(self):
-        T = np.empty(len(self.data))
-        X = np.empty((len(self.data[1]), len(self.data)))
-        for idx, elm in enumerate(self.data):
-            T[idx] = elm[2]
-            X[0][idx] = elm[0]
-            X[1][idx] = elm[1]
-            X[2][idx] = 1
-        
-        return T, X
+        X = self.data[0]
+        T = self.data[1]
+        return X, T
 
 #Creates the two functions to be approximated in task 1. Can be moved to different class
     def targets(self,interval,span=[0,2*math.pi]):

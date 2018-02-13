@@ -6,7 +6,7 @@ class annRBF():
     def __init__(self, data):
         self.data = data
         self.W = None
-        self.phi
+        self.phi = None
 
     def init_W(self, mu=0, var=1):
         self.W = np.random.normal(mu, var, len(self.data[0]))
@@ -43,16 +43,20 @@ class annRBF():
 
 
 
-    def fkn_approx(self, targets, epochs, eta):
+    def fkn_approx(self, epochs, eta):
 
         self.init_W()
-        low = min(self.data)
-        high = max(self.data)
+        low = min(self.data[0])
+        high = max(self.data[0])
         mu = np.arange(low, high, (high - low)/n)
 
         self.init_phi(n,mu)
+        targets=data[1]
         for i in range(epochs):
             self.update_weights(eta)
+
+        error=targets-np.dot(self.phi*self.W)
+        print("error: " + str(error))
 
 
 

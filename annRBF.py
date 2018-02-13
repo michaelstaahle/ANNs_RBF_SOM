@@ -20,3 +20,7 @@ class ClassName():
             X[2][idx] = 1
         
         return T, X
+
+    def rbf(self, x, mu, sigma2):
+        out = np.exp(-((x-mu)**2)/(2*sigma2))
+        return out

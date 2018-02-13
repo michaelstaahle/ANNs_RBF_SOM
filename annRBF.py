@@ -6,9 +6,22 @@ class annRBF():
     def __init__(self, data):
         self.data = data
         self.W = None
+        self.phi
 
     def init_W(self, mu=0, var=1):
         self.W = np.random.normal(mu, var, len(self.data[0]))
+
+
+    def init_phi(self,n,mu,sigma2=1,k=len(self.data)):
+        phi=np.empty((n,k))
+
+        for j in range(k):
+            for i in range(n):
+                phi[i,j] = self.rbf(x[j], mu[i], sigma2[i])
+
+        return phi
+
+
 
     def parse_data(self):
         X = self.data[0]
@@ -30,9 +43,16 @@ class annRBF():
 
 
 
-    def fknApprox(self, targets, epochs):
+    def fkn_approx(self, targets, epochs, eta):
 
-        update_weights(self)
+        self.init_W()
+        low = min(self.data)
+        high = max(self.data)
+        mu = np.arange(low, high, (high - low)/n)
+
+        self.init_phi(n,mu)
+        for i in range(epochs):
+            self.update_weights(eta)
 
 
 

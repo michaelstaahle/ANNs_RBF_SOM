@@ -36,10 +36,13 @@ class annRBF():
 
 
 
-def fknApprox(self, targets, epochs):
+    def fknApprox(self, targets, epochs):
 
-    update_weights(self)
-
-
+        update_weights(self)
 
 
+
+
+    def update_weights(self, eta):
+        X, T = self.parse_data()
+        for elm in X:

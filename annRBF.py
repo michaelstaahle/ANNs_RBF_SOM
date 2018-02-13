@@ -1,5 +1,5 @@
 import numpy as np 
-
+import math
 
 class ClassName():
     """docstring for ClassName"""
@@ -20,3 +20,10 @@ class ClassName():
             X[2][idx] = 1
         
         return T, X
+
+    def targets(self,interval,span=[0,2*math.pi]):
+        x = np.arange(span[1],span[2],interval)
+        sinx = np.sin(x)
+        sqx = np.sign(sinx)
+
+        return (x, sinx, sqx)

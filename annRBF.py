@@ -8,6 +8,12 @@ class annRBF():
         self.W = None
         self.phi = None
 
+#Defines the gaussian-shaped RBF functions/nodes
+    def rbf(self, x, mu, sigma2):
+        out = np.exp(-((x-mu)**2)/(2*sigma2))
+        return out
+
+
     def init_W(self, mu=0, var=1):
         self.W = np.random.normal(mu, var, len(self.data[0]))
 
@@ -16,29 +22,20 @@ class annRBF():
         k = len(self.data)
         phi = np.empty((n,k))
 
-        for j in range(k):
-            for i in range(n):
-                phi[i,j] = self.rbf(x[j], mu[i], sigma2[i])
+        for i in range(n):
+            for j in range(k):
+                self.phi[i,j] = self.rbf(x[j], mu[i], sigma2)
 
         return phi
 
 
-
-    def parse_data(self):
-        X = self.data[0]
-        T = self.data[1]
-        return X, T
-
-
-#Defines the gaussian-shaped RBF functions/nodes
-    def rbf(self, x, mu, sigma2):
-        out = np.exp(-((x-mu)**2)/(2*sigma2))
-        return out
-
+    def update_weights(self, eta):
+        X, T = self.parse_data()
+        for elm in X:
+            pass
 
 
     def fkn_approx(self, epochs, eta):
-
         self.init_W()
         low = min(self.data[0])
         high = max(self.data[0])
@@ -49,13 +46,6 @@ class annRBF():
         for i in range(epochs):
             self.update_weights(eta)
 
-        error=targets-np.dot(self.phi*self.W)
+        error = targets - np.dot(self.phi * self.W)
         print("error: " + str(error))
 
-
-
-
-    def update_weights(self, eta):
-        X, T = self.parse_data()
-        for elm in X:
-            pass

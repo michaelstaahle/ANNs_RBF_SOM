@@ -13,9 +13,14 @@ def targets(step, span=[0,2*math.pi]):
 
 x, sinx, sqx = targets(0.1)
 
-print(sinx.size)
 data1 = [x, sinx]
 data2 = [x, sqx]
 
 #print(data1)
 #print(data2)
+
+RBF_net = annRBF(data1)
+
+RBF_net.fkn_approx(10, 0.001, 5)
+
+print(RBF_net.W)

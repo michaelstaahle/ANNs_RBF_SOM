@@ -28,7 +28,10 @@ class annRBF():
 
 # updating the weights incrementally (according to the delta rule) but for all the data points. 
 # Not sure what the difference is between incremental and batch in this case.
-# We are supose to do them both. 
+# We are supose to do both. 
+    def TotalError(self):
+        error = self.data[1] - np.dot(self.W, self.phi)
+        return error
 
     def update_weights(self, eta):
             for k in range(self.data[0].size):
@@ -45,7 +48,3 @@ class annRBF():
 
         for _ in range(epochs):
             self.update_weights(eta)
-
-        #error = targets - np.dot(self.phi * self.W)
-        #print("error: " + str(error))
-

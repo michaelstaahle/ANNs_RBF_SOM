@@ -21,6 +21,7 @@ data2 = [x, sqx]
 
 RBF_net = annRBF(data1)
 
-RBF_net.fkn_approx(10, 0.001, 5)
+RBF_net.fkn_approx(50, 0.01, 15)
 
-print(RBF_net.W)
+#print(RBF_net.W)
+print(RBF_net.TotalError())

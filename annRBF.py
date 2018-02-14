@@ -29,7 +29,8 @@ class annRBF():
 # updating the weights incrementally (according to the delta rule) but for all the data points. 
 # Not sure what the difference is between incremental and batch in this case.
 # We are supose to do both. 
-    def TotalError(self):
+
+    def total_error(self):
         error = self.data[1] - np.dot(self.W, self.phi)
         return error
 
@@ -48,3 +49,7 @@ class annRBF():
 
         for _ in range(epochs):
             self.update_weights(eta)
+
+    def get_approx(self):
+        approx_val = np.dot(self.W, self.phi)
+        return approx_val  

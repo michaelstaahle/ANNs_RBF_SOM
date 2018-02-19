@@ -12,21 +12,30 @@ def targets(step, span=[0,2*math.pi]):
     return x, sinx, sqx
 
 #print(targets(0.1))
-
 x, sinx, sqx = targets(0.1)
 
 data1 = [x, sinx]
 data2 = [x, sqx]
 
+x_test, sinx_test, sqx_test = targets(0.1, span=[0.05, 2*math.pi])
+
+data1_test = [x_test, sinx_test]
+data2_test = [x_test, sqx_test]
+
 #print(data1)
 #print(data2)
 
-RBF_net = annRBF(data1)
+RBF_net = annRBF(data1, data1_test)
 
-RBF_net.fkn_approx(1000, 0.01, 15)
+RBF_net.fkn_approx(100, 0.01, 4)
 
 print(RBF_net.W)
-#print(RBF_net.total_error())
+
+print(RBF_net.total_error(data1[1]))
+
+RBF_net.init_phi_test(data1_test[0], 4)
+
+print(RBF_net.total_error_test(data1_test[1]))
 
 approx_val = RBF_net.get_approx()
 

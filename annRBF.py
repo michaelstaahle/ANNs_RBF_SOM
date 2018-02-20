@@ -57,6 +57,10 @@ class annRBF():
                 delta_w = eta * (self.data[1][k] - np.dot(self.phi[:, k], self.W)) * self.phi[:, k]
                 self.W += delta_w
 
+    def update_badge(self):
+        f=np.linalg.lstsq(self.phi,self.data[1])
+        return f
+
 
     def fkn_approx(self, epochs, eta, n):
         self.init_W(n)

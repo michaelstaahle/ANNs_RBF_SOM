@@ -3,6 +3,8 @@ from annRBF import annRBF
 import math
 import matplotlib.pyplot as plt
 
+
+
 #np.random.seed(50)
 #Creates the two functions to be approximated in task 1. Can be moved to different class
 def targets(step, span=[0,2*math.pi]):
@@ -11,9 +13,19 @@ def targets(step, span=[0,2*math.pi]):
     sqx = np.sign(sinx)
     return x, sinx, sqx
 
-#print(targets(0.1))
-x, sinx, sqx = targets(0.1)
+def noisy(data, mean, var):
+    noise = np.random.normal(mean,var,len(data))
+    out = noise + data
+    return out
 
+x, sinx, sqx = targets(0.1)
+#Allows a choice about noisy/non-noisy data
+noise=True
+if noise==True:
+    sinx = noisy(sinx, 0, 0.1)
+    sqx = noisy(sqx, 0, 0.1)
+
+#print(targets(0.1))
 data1 = [x, sinx]
 data2 = [x, sqx]
 

@@ -1,0 +1,9 @@
+Todo:
+
+1. Discuss and answer the theoretical questions on page 3 in the lab description. 
+
+2. Create plots and tables for the first RBF when varing the number of radion functions.
+
+3. Discuss and answer the theoretical question on how to reduce the recidual error to 0 for square(2x)
+
+4. Compare the learning approaches in terms of num of epochs and num of RBF nodes

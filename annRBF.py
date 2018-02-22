@@ -58,8 +58,8 @@ class annRBF():
                 self.W += delta_w
 
     def update_badge(self):
-        f=np.linalg.lstsq(self.phi,self.data[1])
-        return f
+        W=np.linalg.lstsq(self.phi,self.data[1])
+        return W
 
 
     def fkn_approx(self, epochs, eta, n):

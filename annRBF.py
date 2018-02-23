@@ -43,22 +43,28 @@ class annRBF():
 # We are supose to do both. 
 
     def total_error(self, Y):
-        error = Y - np.dot(self.W, self.phi)
-        sum_sqr_error = sum(error**2)
-        return error, sum_sqr_error
+        error = sum(np.abs(Y - np.dot(self.W, self.phi)))/len(Y)
+        #sum_sqr_error = sum(error**2)
+        return error
 
-    def total_error_test(self, Y):
-        error = Y - np.dot(self.W, self.phi_test)
-        sum_sqr_error = sum(error**2)
-        return error, sum_sqr_error
+    def total_error_test(self, Y, n):
+        self.init_phi_test(self.test_data[0], n)
+        error = sum(np.abs(Y - np.dot(self.W, self.phi_test)))/len(Y)
+        #sum_sqr_error = sum(error**2)
+        return error
 
     def update_weights(self, eta):
             for k in range(self.data[0].size):
                 delta_w = eta * (self.data[1][k] - np.dot(self.phi[:, k], self.W)) * self.phi[:, k]
                 self.W += delta_w
 
-    def update_badge(self):
-        W=np.linalg.lstsq(self.phi,self.data[1])
+    def update_batch(self, n):
+        low = min(self.data[0])
+        high = max(self.data[0])
+        mu = np.arange(low, high, (high - low)/n)
+        self.init_phi(self.data[0], n, mu)
+        W=np.linalg.lstsq(np.transpose(self.phi), self.data[1])
+        self.W = W[0]
         return W
 
 

@@ -20,7 +20,7 @@ def noisy(data, mean, var):
 
 x, sinx, sqx = targets(0.1)
 #Allows a choice about noisy/non-noisy data
-noise=True
+noise=False
 if noise==True:
     sinx = noisy(sinx, 0, 0.1)
     sqx = noisy(sqx, 0, 0.1)
@@ -39,7 +39,10 @@ data2_test = [x_test, sqx_test]
 
 RBF_net = annRBF(data1, data1_test)
 
-RBF_net.fkn_approx(100, 0.01, 4)
+
+print(RBF_net.update_batch(4))
+
+#RBF_net.fkn_approx(100, 0.01, 4)
 
 print(RBF_net.W)
 
@@ -47,11 +50,21 @@ print(RBF_net.total_error(data1[1]))
 
 RBF_net.init_phi_test(data1_test[0], 4)
 
-print(RBF_net.total_error_test(data1_test[1]))
+#print(RBF_net.total_error_test(data1_test[1], 4))
 
 approx_val = RBF_net.get_approx()
 
 
+def num_rbf_effect(n, train_data, test_data):
+    RBF_net = annRBF(train_data, test_data)
+    abs_error = []
+    for i in range(1,n+1):
+        RBF_net.update_batch(i)
+        abs_error.append(RBF_net.total_error_test(test_data[1], i))
+    return abs_error
+
+abs_error = num_rbf_effect(50, data1, data1_test)
+print(abs_error)
 
 plt.plot(x, sinx)
 plt.plot(x, approx_val)

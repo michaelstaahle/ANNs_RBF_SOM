@@ -10,6 +10,9 @@ class annSOM():
         self.test_data = test_data
         self.neighbourhood = None #list of the relevant nodes to be updated
 
+    def init_animalgrid(self):
+        self.grid=np.random.rand(100,86)
+
 
     def wdist(self,weight): #determines the distance between grid point and input, called by winner()
         dist=(self.data[1]-weight).dot(self.data[1]-weight)
@@ -24,11 +27,19 @@ class annSOM():
         mindist=wdist(grid[0])
         minindex=-1
         for i in range(grid.size):
-            if wdist(grid[i])<min:
-                mindist=wdist(grid[i])
-                minindex=i
+            if wdist(grid[i]) < mindist:
+                mindist = wdist(grid[i])
+                minindex = i
         return minindex
 
-    def find_neighbours(self,winner,dist):
-        nbrs=np.array(winner)
-        np.append(nbrs,neighbour) #TODO: add which the neighbour indices are
+    def find_neighbours2D(self, winner, dist):
+        nbrs = np.array(winner)
+        dim1=np.shape(self.grid)[0]
+        dim2=np.shape(self.grid)[1]
+        nbrs = np.append(nbrs,neighbour) #TODO: add which the neighbour indices are
+        return nbrs
+
+    def find_neighbours1D(self,winner,dist):
+        nbrs = range(max(winner-dist, 0), min(winner+dist, grid.size[0]))
+        nbrs = np.array(nbrs) #converting from range to array
+        return nbrs

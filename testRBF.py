@@ -20,7 +20,7 @@ def noisy(data, mean, var):
 
 x, sinx, sqx = targets(0.1)
 #Allows a choice about noisy/non-noisy data
-noise=True
+noise=False
 if noise==True:
     sinx = noisy(sinx, 0, 0.1)
     sqx = noisy(sqx, 0, 0.1)
@@ -66,15 +66,15 @@ def num_rbf_effect(n, train_data, test_data):
         abs_error_train.append(RBF_net.total_error(train_data[1]))
     return abs_error_test, abs_error_train
 
-abs_error1_test, abs_error1_train = num_rbf_effect(100, data1, data1_test)
-abs_error2_test, abs_error2_train = num_rbf_effect(100, data2, data2_test)
+abs_error1_test, abs_error1_train = num_rbf_effect(127, data1, data1_test)
+abs_error2_test, abs_error2_train = num_rbf_effect(127, data2, data2_test)
 
-print(abs_error1_train)
-print(abs_error2_train)
+print(abs_error1_test)
+print(abs_error2_test)
 
 
-plt.plot(range(100), abs_error1_train)
-plt.plot(range(100), abs_error2_train)
+plt.plot(range(127), abs_error1_test)
+plt.plot(range(127), abs_error2_test)
 plt.show()
 #plt.plot(x, sinx)
 #plt.plot(x, approx_val)
